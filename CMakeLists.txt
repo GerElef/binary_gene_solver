@@ -15,4 +15,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Winit-self -Wlogical-op -Wmissing-include-d
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdiagnostics-show-option")
 
-add_executable(binary_gene_solver main.c)
+add_executable(binary_gene_solver main.c compute.h macros.h compute.c)
+
+add_executable(binary_gene_solver_tests tests.c compute.h macros.h compute.c)
