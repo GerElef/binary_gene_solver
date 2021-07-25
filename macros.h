@@ -37,19 +37,19 @@
     #define PRINT_MAGENTA(x)        printf(ANSI_COLOR_MAGENTA x ANSI_COLOR_RESET)
     #define PRINT_CYAN(x)           printf(ANSI_COLOR_CYAN    x ANSI_COLOR_RESET)
 #else
-#define PRINTF_RED(x, ...)      printf(x, __VA_ARGS__)
+#define PRINTF_RED(x, ...)          printf(x, __VA_ARGS__)
     #define PRINTF_GREEN(x, ...)    printf(x, __VA_ARGS__)
     #define PRINTF_YELLOW(x, ...)   printf(x, __VA_ARGS__)
     #define PRINTF_BLUE(x, ...)     printf(x, __VA_ARGS__)
     #define PRINTF_MAGENTA(x, ...)  printf(x, __VA_ARGS__)
     #define PRINTF_CYAN(x, ...)     printf(x, __VA_ARGS__)
 
-    #define PRINT_RED(x)      printf(x)
-    #define PRINT_GREEN(x)    printf(x)
-    #define PRINT_YELLOW(x)   printf(x)
-    #define PRINT_BLUE(x)     printf(x)
-    #define PRINT_MAGENTA(x)  printf(x)
-    #define PRINT_CYAN(x)     printf(x)
+    #define PRINT_RED(x)            printf(x)
+    #define PRINT_GREEN(x)          printf(x)
+    #define PRINT_YELLOW(x)         printf(x)
+    #define PRINT_BLUE(x)           printf(x)
+    #define PRINT_MAGENTA(x)        printf(x)
+    #define PRINT_CYAN(x)           printf(x)
 #endif
 
 #if CUSTOM_MALLOC == 1
@@ -77,8 +77,8 @@
 
 //https://stackoverflow.com/questions/1644868/define-macro-for-debug-printing-in-c
 #define DEBUG_ARENA(...)     do { if (__DEBUG__) { __VA_ARGS__ } } while(0)
-#define DEBUG_PRINTF(x, ...) DEBUG_ARENA(PRINTF_YELLOW("%s:%d:%s():\t" x ANSI_COLOR_RESET, __FILE__, __LINE__, __func__, __VA_ARGS__);)
-#define DEBUG_PRINT(x)       DEBUG_ARENA(PRINT_YELLOW(ANSI_COLOR_YELLOW "%s:%d:%s():\t" x ANSI_COLOR_RESET, __FILE__, __LINE__, __func__);)
+#define DEBUG_PRINTF(x, ...) DEBUG_ARENA(PRINTF_YELLOW("%s:%d:%s():\t" x, __FILE__, __LINE__, __func__, __VA_ARGS__);)
+#define DEBUG_PRINT(x)       DEBUG_ARENA(PRINTF_YELLOW("%s:%d:%s():\t" x, __FILE__, __LINE__, __func__);)
 
 //https://stackoverflow.com/questions/1082192/how-to-generate-random-variable-names-in-c-using-macros/17624752#17624752
 #define VAR_CONCAT(a, b) VAR_CONCAT_INNER(a, b)
@@ -86,5 +86,7 @@
 #define itervar(base) VAR_CONCAT(base, __LINE__)
 //https://news.ycombinator.com/item?id=27137893
 #define FOR_DEFER(pre, post) for (int itervar(i) = ((pre), 0); !itervar(i)++; (post))
+//TODO create an alternative defer with this
+// https://fdiv.net/2015/10/08/emulating-defer-c-clang-or-gccblocks
 
 #endif //BINARY_GENE_SOLVER_MACROS_H

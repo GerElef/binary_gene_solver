@@ -141,7 +141,7 @@ uint8_t get_next_binary_true_rand(){
 
     return dev_urandom_buff[++bytes_read] % 2 == 0;
 }
-
+//TODO add debug prints on all SLL functions
 iteration_data_sll *initialize_iteration_data_list(err_s *ppErr) {
     iteration_data_sll *iter_sll = malloc(sizeof(iteration_data_sll));
     if (!iter_sll) {
@@ -202,8 +202,6 @@ void add_iteration_data_node_to_sll(iteration_data_sll *sll, solver_iteration_da
         sll->head = create_iteration_data_sll_node(iter_data, ppErr);
     }
 
-    //TODO add debug check on ppErr
-
     if (ppErr->err_type != NONE) {
         return;
     }
@@ -220,8 +218,6 @@ void free_iteration_data_sll(iteration_data_sll **pp_iteration_data_sll) {
         free(iterator);
         iterator = next_item;
     }
-
-    //TODO add debug prints
 
 }
 
@@ -254,20 +250,19 @@ int size_is_multiple_of_problem_size(size_t problem_size) {
     return problem_size % MULTIPLE_OF_PROBLEM_SIZE == 0;
 }
 
-void *c_malloc(size_t b, int line, char *file, char *func) {
+void *c_malloc(size_t b, const int line, const char *file, const char *func) {
     return NULL;
 }
 
-void *c_calloc(size_t n, size_t n_size, int line, char *file, char *func) {
+void *c_calloc(size_t n, size_t n_size, const int line, const char *file, const char *func) {
     return NULL;
 }
 
-void *c_realloc(void *p, size_t new_size, int line, char *file, char *func) {
+void *c_realloc(void *p, size_t new_size, const int line, const char *file, const char *func) {
     return NULL;
 }
 
-void c_free(void *p, int line, char *file, char *func) {
-
+void c_free(void *p, const int line, const char *file, const char *func) {
     return;
 }
 

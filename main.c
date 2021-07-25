@@ -9,12 +9,11 @@
 #include "macros.h"
 #include "compute.h"
 
-// TODO create mem arena bind/macro?
-// TODO create custom malloc maybe?
+// TODO add documentation to everything
 // TODO parallelize with openmp?
 // TODO add visualizations etc.
-//  we might have to brute force a small problem or two to create thw "y" dimension; how can we flatten the n-th
-//  dimensional problem into a 2d or 3d plot?
+//  we might have to brute force a small problem or two to create plots for the the "y" dimension;
+//  how can we flatten the n-th dimensional problem into a 2d or 3d plot?
 
 uint64_t MAX_ITERATIONS;
 

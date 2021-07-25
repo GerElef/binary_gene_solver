@@ -51,7 +51,6 @@ uint8_t get_next_binary_true_rand();
 //problem size must be a multiple of 8
 int size_is_multiple_of_problem_size(size_t problem_size);
 char *get_error_type_string(int err_type);
-//TODO check the SLL functions all work as intended
 //data handling
 iteration_data_sll *initialize_iteration_data_list(err_s *);
 iteration_data_node *create_iteration_data_sll_node(solver_iteration_data *, err_s *);
@@ -66,10 +65,10 @@ void set_bit(uint8_t *arr, int k);          //set   (one)
 void clear_bit(uint8_t *arr, int k);        //clear (zero)
 int test_bit(const uint8_t *arr, int k);    //test  (1 if 1, else 0)
 
-void *c_malloc(size_t b, int line, char *file, char *func);
-void *c_calloc(size_t n, size_t n_size, int line, char *file, char *func);
-void *c_realloc(void *p, size_t new_size, int line, char *file, char *func);
-void c_free(void *p, int line, char *file, char *func);
+void *c_malloc(size_t b, const int line, const char *file, const char *func);
+void *c_calloc(size_t n, size_t n_size, const int line, const char *file, const char *func);
+void *c_realloc(void *p, size_t new_size, const int line, const char *file, const char *func);
+void c_free(void *p, const int line, const char *file, const char *func);
 
 struct err_struct {
     char *err_msg;
