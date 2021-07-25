@@ -8,7 +8,25 @@
 #include <limits.h>
 #include "macros.h"
 #include "compute.h"
+#include "globals.h"
 
+uint8_t *(*getCreator(enum Vector_t creator_type))(size_t, err_s *) {
+    switch (creator_type) {
+        case VECTOR_OF_ZEROS:
+            return create_vector_of_zeros;
+        case VECTOR_OF_ONES:
+            return create_vector_of_ones;
+        case VECTOR_OF_ALTERNATING_ONES_ZEROS:
+            return create_vector_of_alternating_ones_zeros;
+        case VECTOR_OF_RANDOMS:
+            return create_vector_of_randoms;
+        case VECTOR_OF_TRUE_RANDOMS:
+            return create_vector_of_true_randoms;
+        default:
+            DEBUG_PRINTF("Invalid vector type initialization switch val %d\n", creator_type);
+            exit(EXIT_FAILURE);
+    }
+}
 
 uint8_t *create_solution_table(uint8_t * (*p_creator)(size_t, err_s *), size_t p_size, err_s *ppErr) {
     uint8_t *sol_v = p_creator(p_size, ppErr);
@@ -234,6 +252,23 @@ int test_bit(const uint8_t *arr, int k) {
 
 int size_is_multiple_of_problem_size(size_t problem_size) {
     return problem_size % MULTIPLE_OF_PROBLEM_SIZE == 0;
+}
+
+void *c_malloc(size_t b, int line, char *file, char *func) {
+    return NULL;
+}
+
+void *c_calloc(size_t n, size_t n_size, int line, char *file, char *func) {
+    return NULL;
+}
+
+void *c_realloc(void *p, size_t new_size, int line, char *file, char *func) {
+    return NULL;
+}
+
+void c_free(void *p, int line, char *file, char *func) {
+
+    return;
 }
 
 char *get_error_type_string(int err_type) {

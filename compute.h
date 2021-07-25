@@ -6,11 +6,15 @@
 #include <unistd.h>
 #include <sys/random.h>
 #include <limits.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include "macros.h"
+#include "globals.h"
 
 #ifndef BINARY_GENE_SOLVER_DATA_STRUCTS_H
 #define BINARY_GENE_SOLVER_DATA_STRUCTS_H
 
-extern uint64_t MAX_ITERATIONS;
+uint64_t MAX_ITERATIONS;
 
 enum Error_t {
     NONE = 0,
@@ -29,6 +33,8 @@ typedef struct err_struct err_s;
 typedef struct solv_iteration_data solver_iteration_data;
 typedef struct iter_data_node iteration_data_node;
 typedef struct iter_data_sll iteration_data_sll;
+
+uint8_t *(*getCreator(enum Vector_t creator_type))(size_t, err_s *);
 
 uint8_t *create_solution_table(uint8_t *(*p_creator)(size_t, err_s *), size_t p_size, err_s *);
 uint8_t *create_vector_of_ones(size_t, err_s *);
@@ -50,7 +56,7 @@ char *get_error_type_string(int err_type);
 iteration_data_sll *initialize_iteration_data_list(err_s *);
 iteration_data_node *create_iteration_data_sll_node(solver_iteration_data *, err_s *);
 solver_iteration_data *create_iteration_data(const double, const uint64_t, const size_t, uint8_t *, err_s *);
-void add_iteration_data_node_to_sll(iteration_data_sll *, solver_iteration_data *, err_s *ppErr); \
+void add_iteration_data_node_to_sll(iteration_data_sll *, solver_iteration_data *, err_s *ppErr);
 void free_iteration_data_sll(iteration_data_sll **);
 void free_iteration_data_node(iteration_data_node **);
 void free_iteration_data(solver_iteration_data **);
@@ -59,6 +65,11 @@ void free_iteration_data(solver_iteration_data **);
 void set_bit(uint8_t *arr, int k);          //set   (one)
 void clear_bit(uint8_t *arr, int k);        //clear (zero)
 int test_bit(const uint8_t *arr, int k);    //test  (1 if 1, else 0)
+
+void *c_malloc(size_t b, int line, char *file, char *func);
+void *c_calloc(size_t n, size_t n_size, int line, char *file, char *func);
+void *c_realloc(void *p, size_t new_size, int line, char *file, char *func);
+void c_free(void *p, int line, char *file, char *func);
 
 struct err_struct {
     char *err_msg;

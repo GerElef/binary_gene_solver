@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 
     srand(SEED); // calls to lrand48(); will now work correctly
 
-    int creator_type = VECTOR_OF_ZEROS;
+    enum Vector_t creator_type = VECTOR_OF_ZEROS;
     size_t problem_size = 512;
 
     for (int i = 1; i < argc; ++i) {
@@ -57,28 +57,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    uint8_t * (*creator)(size_t, err_s *);
-
-    switch (creator_type) {
-        case VECTOR_OF_ZEROS:
-            creator = create_vector_of_zeros;
-            break;
-        case VECTOR_OF_ONES:
-            creator = create_vector_of_ones;
-            break;
-        case VECTOR_OF_ALTERNATING_ONES_ZEROS:
-            creator = create_vector_of_alternating_ones_zeros;
-            break;
-        case VECTOR_OF_RANDOMS:
-            creator = create_vector_of_randoms;
-            break;
-        case VECTOR_OF_TRUE_RANDOMS:
-            creator = create_vector_of_true_randoms;
-            break;
-        default:
-            DEBUG_PRINTF("Invalid vector type initializator switch val %d\n", creator_type);
-            exit(EXIT_FAILURE);
-    }
+    uint8_t * (*creator)(size_t, err_s *) = getCreator(creator_type);
 
     uint8_t *solution_table = create_solution_table(creator, problem_size, err);
 
