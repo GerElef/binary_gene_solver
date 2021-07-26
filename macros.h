@@ -11,6 +11,15 @@
 #define DEV_URANDOM_SIZE 256
 #define DEV_URANDOM_FLAGS 0
 
+#ifdef _MSC_VER
+#error "This program is not yet compatible with MSVC. Compile with GCC (tested), Clang or ICC"
+#endif
+#ifdef _MSC_FULL_VER
+#ifndef _MSC_VER
+#error "This program is not yet compatible with MSVC. Compile with GCC (tested), Clang or ICC"
+#endif
+#endif
+
 //https://dev.to/tenry/terminal-colors-in-c-c-3dgc
 //https://stackoverflow.com/questions/3219393/stdlib-and-colored-output-in-c
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -81,12 +90,11 @@
 #define DEBUG_PRINT(x)       DEBUG_ARENA(PRINTF_YELLOW("%s:%d:%s():\t" x, __FILE__, __LINE__, __func__);)
 
 //https://stackoverflow.com/questions/1082192/how-to-generate-random-variable-names-in-c-using-macros/17624752#17624752
-#define VAR_CONCAT(a, b) VAR_CONCAT_INNER(a, b)
-#define VAR_CONCAT_INNER(a, b) a ## b
-#define itervar(base) VAR_CONCAT(base, __LINE__)
+#define VAR_CONCAT(a, b)        VAR_CONCAT_INNER(a, b)
+#define VAR_CONCAT_INNER(a, b)  a ## b
+#define itervar(base)           VAR_CONCAT(base, __LINE__)
 //https://news.ycombinator.com/item?id=27137893
-#define FOR_DEFER(pre, post) for (int itervar(i) = ((pre), 0); !itervar(i)++; (post))
-//TODO create an alternative defer with this
-// https://fdiv.net/2015/10/08/emulating-defer-c-clang-or-gccblocks
+#define FOR_DEFER(pre, post) DEBUG_PRINT("FOR_DEFER\n"); for (int itervar(i) = ((pre), 0); !itervar(i)++; (post))
+#define DEFER(c)             __attribute__((__cleanup__(c)))
 
 #endif //BINARY_GENE_SOLVER_MACROS_H

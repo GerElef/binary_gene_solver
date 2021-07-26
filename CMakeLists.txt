@@ -13,7 +13,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic -Wcast-align -Wcast-qual -Wdisabled-optimization -Wformat=2")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Winit-self -Wlogical-op -Wmissing-include-dirs -Wredundant-decls -Wshadow")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wstrict-overflow=5 -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdiagnostics-show-option")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fdiagnostics-show-option -fno-exceptions")
 
 add_executable(binary_gene_solver main.c compute.h macros.h compute.c globals.h)
 

@@ -39,6 +39,9 @@
 #define TEST_SINGLE_LINKED_LIST
 #define TEST_COMPUTE
 
+void hello() { printf("Hello World!\n"); }
+void hello_intp(int *x) { printf("Hello World! %d\n", *x); *x = 0; }
+
 //TODO THE MOST IMPORTANT!!!!!!!!!!!!!!!
 void test_c_malloc();
 void test_c_calloc();
@@ -142,14 +145,14 @@ int main(int argc, char *argv[]) {
     #ifdef TEST_DEFER_GCC_LLVM_MACRO
         printf("----------------------------------------------------\n");
         {
-            //TODO
+            int x DEFER(hello_intp) = 5;
+            assert(x == 5);
         }
-        PRINT_MAGENTA("Test for GCC/LLVM defer macro passed!\n");
+        PRINT_MAGENTA("Test for GCC/LLVM/ICC defer macro passed!\n");
         printf("----------------------------------------------------\n");
     #endif
 
     PRINT_BLUE("Macro tests passed!\n");
-
 #endif
 
 #if TEST_SLL_AND_BOILERPLATE == 1
@@ -200,7 +203,6 @@ int main(int argc, char *argv[]) {
     #endif
 
     PRINT_BLUE("Sll and boilerplate tests passed!\n");
-
 #endif
 
 #ifdef TEST_COMPUTE
