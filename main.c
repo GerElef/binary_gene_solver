@@ -18,7 +18,7 @@
 uint64_t MAX_ITERATIONS;
 
 int main(int argc, char *argv[]) {
-    err_s *err = malloc(sizeof(err_s));
+    Err_s *err = malloc(sizeof(Err_s));
     err->err_type = NONE;
     err->err_msg = NULL;
 
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    uint8_t * (*creator)(size_t, err_s *) = getCreator(creator_type);
+    uint8_t * (*creator)(size_t, Err_s *) = getCreator(creator_type);
 
     uint8_t *solution_table = create_solution_table(creator, problem_size, err);
 

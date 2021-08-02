@@ -9,6 +9,7 @@
 #include "macros.h"
 #include "compute.h"
 #include <assert.h>
+#include <graphviz/gvc.h> //TODO later for visualization https://graphviz.org/documentation/
 
 // TODO check everything works correctly
 //  meaning, create tests!
@@ -60,22 +61,22 @@ void test_size_is_multiple_of_problem_size(size_t problem_size);
 void test_get_error_type_string();
 
 void test_initialize_iteration_data_list();
-void test_create_iteration_data_sll_node(solver_iteration_data *, err_s *);
-void test_create_iteration_data(const double, const uint64_t, const size_t, uint8_t *, err_s *);
-void test_add_iteration_data_node_to_sll(iteration_data_sll *, solver_iteration_data *, err_s *ppErr);
-void test_free_iteration_data_sll(iteration_data_sll **);
-void test_free_iteration_data_node(iteration_data_node **);
-void test_free_iteration_data(solver_iteration_data **);
+void test_create_iteration_data_sll_node(Solver_iteration_data *, Err_s *);
+void test_create_iteration_data(const double, const uint64_t, const size_t, uint8_t *, Err_s *);
+void test_add_iteration_data_node_to_sll(Iteration_data_sll *, Solver_iteration_data *, Err_s *ppErr);
+void test_free_iteration_data_sll(Iteration_data_sll **);
+void test_free_iteration_data_node(Iteration_data_node **);
+void test_free_iteration_data(Solver_iteration_data **);
 
 
 int main(int argc, char *argv[]) {
-    err_s *err;
+    Err_s *err;
 
     srand(SEED); // calls to lrand48(); will now work correctly
     size_t problem_size = 512;
     MAX_ITERATIONS = problem_size * problem_size;
 
-    uint8_t * (*creator)(size_t, err_s *) = getCreator(VECTOR_OF_ZEROS);
+    uint8_t * (*creator)(size_t, Err_s *) = getCreator(VECTOR_OF_ZEROS);
 
 #if TEST_MACROS == 1
 
@@ -144,10 +145,12 @@ int main(int argc, char *argv[]) {
 
     #ifdef TEST_DEFER_GCC_LLVM_MACRO
         printf("----------------------------------------------------\n");
+        int y DEFER(hello_intp) = 6;
         {
             int x DEFER(hello_intp) = 5;
             assert(x == 5);
         }
+        assert(y == 6);
         PRINT_MAGENTA("Test for GCC/LLVM/ICC defer macro passed!\n");
         printf("----------------------------------------------------\n");
     #endif
@@ -156,7 +159,7 @@ int main(int argc, char *argv[]) {
 #endif
 
 #if TEST_SLL_AND_BOILERPLATE == 1
-    err = malloc(sizeof(err_s));
+    err = malloc(sizeof(Err_s));
     err->err_type = NONE;
     err->err_msg = NULL;
 
@@ -191,13 +194,12 @@ int main(int argc, char *argv[]) {
     #ifdef TEST_SINGLE_LINKED_LIST
         printf("----------------------------------------------------\n");
         test_initialize_iteration_data_list();
-        //TODO
-        // test_create_iteration_data_sll_node(solver_iteration_data *, err_s *);
-        // test_create_iteration_data(const double, const uint64_t, const size_t, uint8_t *, err_s *);
-        // test_add_iteration_data_node_to_sll(iteration_data_sll *, solver_iteration_data *, err_s *ppErr);
-        // test_free_iteration_data_sll(iteration_data_sll **);
-        // test_free_iteration_data_node(iteration_data_node **);
-        // test_free_iteration_data(solver_iteration_data **);
+        test_create_iteration_data_sll_node(Solver_iteration_data *, Err_s *);
+        test_create_iteration_data(const double, const uint64_t, const size_t, uint8_t *, Err_s *);
+        test_add_iteration_data_node_to_sll(Iteration_data_sll *, Solver_iteration_data *, Err_s *ppErr);
+        test_free_iteration_data_sll(Iteration_data_sll **);
+        test_free_iteration_data_node(Iteration_data_node **);
+        test_free_iteration_data(Solver_iteration_data **);
         PRINT_MAGENTA("Test for single linked list passed!\n");
         printf("----------------------------------------------------\n");
     #endif
@@ -280,26 +282,26 @@ void test_initialize_iteration_data_list() {
 
 }
 
-void test_create_iteration_data_sll_node(solver_iteration_data * sid, err_s *perr) {
+void test_create_iteration_data_sll_node(Solver_iteration_data * sid, Err_s *perr) {
 
 }
 
-void test_create_iteration_data(const double f, const uint64_t sc, const size_t s, uint8_t *it, err_s *perr) {
+void test_create_iteration_data(const double f, const uint64_t sc, const size_t s, uint8_t *it, Err_s *perr) {
 
 }
 
-void test_add_iteration_data_node_to_sll(iteration_data_sll *idsll, solver_iteration_data *sid, err_s *pErr) {
+void test_add_iteration_data_node_to_sll(Iteration_data_sll *idsll, Solver_iteration_data *sid, Err_s *pErr) {
 
 }
 
-void test_free_iteration_data_sll(iteration_data_sll **pidsll) {
+void test_free_iteration_data_sll(Iteration_data_sll **pidsll) {
 
 }
 
-void test_free_iteration_data_node(iteration_data_node **pidsll) {
+void test_free_iteration_data_node(Iteration_data_node **pidsll) {
 
 }
 
-void test_free_iteration_data(solver_iteration_data **psid) {
+void test_free_iteration_data(Solver_iteration_data **psid) {
 
 }
