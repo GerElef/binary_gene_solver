@@ -261,6 +261,8 @@ int size_is_multiple_of_problem_size(size_t problem_size) {
     return problem_size % MULTIPLE_OF_PROBLEM_SIZE == 0;
 }
 
+// TODO for further info:
+//  https://stackoverflow.com/questions/30004647/what-are-the-next-step-to-improve-malloc-algorithm
 void *c_malloc(size_t b, const int line, const char *file, const char *func) {
     return NULL;
 }
